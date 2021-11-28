@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Input } from 'antd';
+import React, { useState } from 'react';
+import { Input, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './App.css';
 
@@ -56,19 +56,19 @@ function App() {
     }
   });
 
-  useEffect(() => {
-    setAfterTaxSalary(() => {
+  // useEffect(() => {
+  //   setAfterTaxSalary(() => {
       
-      const perYear = originSalaryAll - taxPerYear(originSalaryAll, welfareAll) - welfareAll;
-      const perMonth = perYear / originSalaryInfo.month;
-      const bouns = perMonth * (originSalaryInfo.month - 12);
-      return {
-        perYear,
-        perMonth,
-        bouns
-      }
-    })
-  }, [originSalaryInfo, welfareAll, originSalaryAll]);
+  //     const perYear = originSalaryAll - taxPerYear(originSalaryAll, welfareAll) - welfareAll;
+  //     const perMonth = perYear / originSalaryInfo.month;
+  //     const bouns = perMonth * (originSalaryInfo.month - 12);
+  //     return {
+  //       perYear,
+  //       perMonth,
+  //       bouns
+  //     }
+  //   })
+  // }, [originSalaryInfo, welfareAll, originSalaryAll]);
   
   const salaryChange = (value, type)=>{
     if(!isNaN(Number(value))){
@@ -118,6 +118,21 @@ function App() {
     
   }
 
+  const calResult = () => {
+    console.log('111');
+    setAfterTaxSalary(() => {
+      
+      const perYear = originSalaryAll - taxPerYear(originSalaryAll, welfareAll) - welfareAll;
+      const perMonth = perYear / originSalaryInfo.month;
+      const bouns = perMonth * (originSalaryInfo.month - 12);
+      return {
+        perYear,
+        perMonth,
+        bouns
+      }
+    })
+  }
+  
   return (
     <div className="App">
       <div className="container">
@@ -134,6 +149,7 @@ function App() {
         <div><label>生育保险</label><Input id='shengyu' defaultValue={maternity} onChange={(e)=>welfareChange(e.target.value, 'maternity')} style={{ width: 150 }} />%</div>
         <div><label>住房公积金</label><Input id='gongjijin' defaultValue={housingFund} onChange={(e)=>welfareChange(e.target.value, 'housingFund')} style={{ width: 150 }} />%</div>
         <hr/>
+        <Button type="primary" id='claculate' onClick={calResult}>计算</Button>
         <div><label>税后年薪</label><Input id='afterTaxSalary' value={afterTaxSalary.perYear} style={{ width: 150 }} /></div>
         <div><label>税后月薪</label><Input id='afterTaxSalary' value={afterTaxSalary.perMonth} style={{ width: 150 }} /></div>
         <div><label>年终奖</label><Input id='afterTaxSalary' value={afterTaxSalary.bouns} style={{ width: 150 }} /></div>
