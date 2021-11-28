@@ -72,17 +72,17 @@ function App() {
   
   const salaryChange = (value, type)=>{
     if(!isNaN(Number(value))){
-      if(type === 'salary') {
+      if(type === 'salary') { //税前每月工资改变
         setOriSalaryInfo((prev) => { return {originSalary:Number(value), month:prev.month}})
         welfareAll = calWelfareAll(originSalaryInfo.originSalary, pension, medical, unemployee, injury, maternity, housingFund)
         console.log(originSalaryInfo)
         
       }
-      else {
+      else { //月数改变
         setOriSalaryInfo((prev) => { return {originSalary:prev.originSalary, month:Number(value)}})
         welfareAll = calWelfareAll(originSalaryInfo.originSalary, pension, medical, unemployee, injury, maternity, housingFund)
         console.log(originSalaryInfo)
-        setAfterTaxSalary(() => taxPerYear(originSalaryInfo.originSalary, originSalaryInfo.month, welfareAll))
+        // setAfterTaxSalary(() => taxPerYear(originSalaryInfo.originSalary, originSalaryInfo.month, welfareAll))
       }
       
     }
@@ -150,9 +150,9 @@ function App() {
         <div><label>住房公积金</label><Input id='gongjijin' defaultValue={housingFund} onChange={(e)=>welfareChange(e.target.value, 'housingFund')} style={{ width: 150 }} />%</div>
         <hr/>
         <Button type="primary" id='claculate' onClick={calResult}>计算</Button>
-        <div><label>税后年薪</label><Input id='afterTaxSalary' value={afterTaxSalary.perYear} style={{ width: 150 }} /></div>
-        <div><label>税后月薪</label><Input id='afterTaxSalary' value={afterTaxSalary.perMonth} style={{ width: 150 }} /></div>
-        <div><label>年终奖</label><Input id='afterTaxSalary' value={afterTaxSalary.bouns} style={{ width: 150 }} /></div>
+        <div><label>税后年薪</label><Input id='afterTaxSalary' value={Math.round(afterTaxSalary.perYear * 100) / 100} style={{ width: 150 }} /></div>
+        <div><label>税后月薪</label><Input id='afterTaxSalary' value={Math.round(afterTaxSalary.perMonth * 10000) / 10000} style={{ width: 150 }} /></div>
+        <div><label>年终奖</label><Input id='afterTaxSalary' value={Math.round(afterTaxSalary.bouns * 10000) / 10000} style={{ width: 150 }} /></div>
       </div>
       <footer>code by llldmiao</footer>
       {/* 相关参考：http://gkml.samr.gov.cn/nsjg/bgt/202106/t20210610_330513.html
