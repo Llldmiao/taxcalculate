@@ -154,7 +154,7 @@ function App() {
         <div><label>税后月薪</label><Input id='afterTaxSalary' value={Math.round(afterTaxSalary.perMonth * 10000) / 10000} style={{ width: 150 }} /></div>
         <div><label>年终奖</label><Input id='afterTaxSalary' value={Math.round(afterTaxSalary.bouns * 10000) / 10000} style={{ width: 150 }} /></div>
       </div>
-      <footer>code by llldmiao</footer>
+      {/* <footer>code by llldmiao</footer> */}
       {/* 相关参考：http://gkml.samr.gov.cn/nsjg/bgt/202106/t20210610_330513.html
         https://www.zhihu.com/question/24529019
       */}
